@@ -17,8 +17,8 @@
   "bugs": {
     "url": "https://github.com/chalettu/stubyl/issues"
   },
-  "bin":{
-    "stubyl":"./dist/app.js"
+  "bin": {
+    "stubyl": "./dist/app.js"
   },
   "homepage": "https://github.com/chalettu/stubyl#readme",
   "devDependencies": {
