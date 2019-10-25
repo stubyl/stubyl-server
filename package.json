@@ -1,5 +1,5 @@
 {
-  "name": "stubyl",
+  "name": "stubyl-server",
   "version": "1.0.0",
   "description": "Command line mock server",
   "main": "dist/app.js",
