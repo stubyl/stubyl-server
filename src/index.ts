@@ -1,36 +1,54 @@
-const express = require('express')
 import { Request, Response, NextFunction } from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+
+import parser from './parser';
+const express = require('express');
+const port = 3009;
+let router = new express.Router();
+let counter = 1;
+function parseApi() {
+  console.log(path.join(__dirname, '../.stubyl/structure.json'));
+  fs.readFile(
+    path.join(__dirname, '../.stubyl/structure.json'),
+    'utf8',
+    (_error, data) => {
+      const testData = JSON.parse(data);
+      console.log(testData.models);
+    }
+  );
+}
 const app = express();
 
-const port=3009;
-let router=new express.Router()
-let counter = 1
-function setupRouter () {
-  router = new express.Router()
-  console.log('running router setup')
-  console.log(`creating path for ${counter}`)
-  counter++
+function setupRouter() {
+  router = new express.Router();
+  console.log('running router setup');
+  console.log(`creating path for ${counter}`);
+  counter++;
   //  Setup dynamic routes here (get them from db?)
-  for(let i=0;i<=counter;i++){
-
-    router.get('/'+i, (req:Request, res: Response) => {
-      console.log(req)
-    res.json({response: 'success '+i});
-  })
+  for (let i = 0; i <= counter; i++) {
+    router.get('/' + i, (req: Request, res: Response) => {
+      console.log(req);
+      res.json({ response: 'success ' + i });
+    });
   }
-  
-  router.get('/foo', (req:Request, res: Response) => {
-    console.log(req)
-    res.json({response: 'success'});
-  })
+
+  router.get('/foo', (req: Request, res: Response) => {
+    console.log(req);
+    res.json({ response: 'success' });
+  });
 }
 
 setupRouter();
-app.use(function replaceableRouter (req:Request, res: Response, next: NextFunction ) {
-  console.log(req)
+app.use(function replaceableRouter(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.log(req);
 
-  router(req, res, next)
-})
+  router(req, res, next);
+});
 
 /* app.listen((port:Number, err: String) => {
   console.log(port)
@@ -40,9 +58,11 @@ app.use(function replaceableRouter (req:Request, res: Response, next: NextFuncti
   return console.log(`server is listening on 3009`);
 }); */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+parser();
+parseApi();
 // When you are ready to replace the routes, just call setup again
 // Every 10 seconds it will refresh in this example
-setInterval(setupRouter, 1000 * 10)
+setInterval(setupRouter, 1000 * 10);
 /* import express from 'express';
 import {ReloadRouter} from 'express-route-reload';
 
