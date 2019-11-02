@@ -1,17 +1,21 @@
 {
-  "name": "stubyl-server-new",
+  "name": "stubyl-server",
   "version": "0.1.0",
   "license": "MIT",
   "author": "Chris Hale",
   "main": "dist/index.js",
-  "module": "dist/stubyl-server-new.esm.js",
+  "module": "dist/stubyl-server.esm.js",
   "typings": "dist/index.d.ts",
+  "private": true,
   "files": [
     "dist"
   ],
   "bin": {
     "stubyl": "./dist/index.js"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -19,7 +23,6 @@
     "lint": "tsdx lint",
     "package": "pkg ./ --out-path ./bin"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -34,12 +37,16 @@
   "devDependencies": {
     "@types/express": "^4.17.1",
     "@types/jest": "^24.0.20",
+    "bili": "^4.8.1",
     "husky": "^3.0.9",
+    "lerna": "^3.18.3",
+    "rollup-plugin-typescript2": "^0.25.1",
     "tsdx": "^0.10.5",
     "tslib": "^1.10.0",
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "commander": "^3.0.2",
     "express": "^4.17.1",
     "express-ws": "^4.0.0"
   }
